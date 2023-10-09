@@ -1,4 +1,4 @@
-import {useRef, useState, useEffect} from "react";
+import { useRef, useState, useEffect } from "react";
 import { library, icon } from '@fortawesome/fontawesome-svg-core';
 import { faCheck, faTimes, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
@@ -29,13 +29,44 @@ const Register = () => {
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
 
-    useEffect(() =>{
+    useEffect(() => {
         userRef.current.focus();
-    }, [])
-    return (
-        <div>
+    }, []);
 
-        </div>
+    // update user value
+    useEffect(() => {
+        const result = USER_REGEX.test(user);
+        console.log(result);
+        console.log(user);
+        setValidName(result);
+    }, [user])
+
+    // update passwprd
+    useEffect(() => {
+        const result = PWD_REGEX.test(pwd);
+        console.log(result);
+        setValidPwd(result);
+        const match = pwd === matchPwd;
+        setValidMatch(match);
+    }, [pwd, matchPwd])
+
+    // set error message
+    useEffect(() => {
+        setErrMsg('');
+    }, [user, pwd, matchPwd])
+
+
+    return (
+        <section>
+            <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+            <h1>Register</h1>
+            <form>
+                <label htmlFor="username">
+                    Username
+                </label>
+                <label htmlFor="password">Password</label>
+            </form>
+        </section>
     )
 }
 
