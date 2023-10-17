@@ -67,10 +67,10 @@ const Register = () => {
                     <label htmlFor="username">
                         Username:
                         <span className={validName ? "valid" : "hide"} >
-                        <FontAwesomeIcon icon={faCheck} />
+                            <FontAwesomeIcon icon={faCheck} />
                         </span>
                         <span className={validName || !user ? "hide" : "invalid"} >
-                        <FontAwesomeIcon icon={faTimes} />
+                            <FontAwesomeIcon icon={faTimes} />
                         </span>
                     </label>
                     <input
@@ -105,10 +105,10 @@ const Register = () => {
                     <label htmlFor="password">
                         Password:
                         <span className={validPwd ? "valid" : "hide"} >
-                        <FontAwesomeIcon icon={faCheck} />
+                            <FontAwesomeIcon icon={faCheck} />
                         </span>
                         <span className={validPwd || !pwd ? "hide" : "invalid"} >
-                        <FontAwesomeIcon icon={faTimes} />
+                            <FontAwesomeIcon icon={faTimes} />
                         </span>
                     </label>
                     <input
@@ -134,6 +134,39 @@ const Register = () => {
                         Your Password needs to be 8 characters at least
                         <br />
                         Must contain at least a number and !@$%
+                    </p>
+                </div>
+                <div className="labelField">
+                    <label htmlFor="confirm_password">
+                        Re-enter Password:
+                        <span className={matchPwd && validMatch ? "valid" : "hide"} >
+                            <FontAwesomeIcon icon={faCheck} />
+                        </span>
+                        <span className={matchPwd && validMatch ? "hide" : "invalid"} >
+                            <FontAwesomeIcon icon={faTimes} />
+                        </span>
+                    </label>
+                    <input
+                        type="password"
+                        id="match_password"
+                        autoComplete="off"
+                        onChange={(e) => setMatchPwd(e.target.value)}
+                        required
+                        aria-invalid={validMatch ? "false" : "true"}
+                        aria-describedby="confirmnote"
+                        onFocus={() => setMatchFocus(true)}
+                        onBlur={() => setMatchFocus(false)}
+                    />
+                    <p
+                        id="confirmnote"
+                        className={
+                            matchFocus && !validMatch
+                                ? "instructions"
+                                : "offscreen"
+                        }
+                    >
+                        <FontAwesomeIcon icon={faInfoCircle} />
+                        Your Password does not match
                     </p>
                 </div>
             </form>
