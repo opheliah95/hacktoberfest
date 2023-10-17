@@ -27,3 +27,10 @@ code {
 .offscreen {
  display: none;
 }
+
+input:focus {
+  background-color: lightblue;
+}
+.labelField {
+  padding: 0.5em;
+}
