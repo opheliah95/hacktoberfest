@@ -18,6 +18,14 @@ code {
 
 .valid {
   visibility: visible;
+  color:green;
+  font-weight: 600;
+}
+
+.invalid {
+  visibility: visible;
+  color:red;
+  font-weight: 600;
 }
 
 .instructions {
@@ -34,3 +42,4 @@ input:focus {
 .labelField {
   padding: 0.5em;
 }
+
