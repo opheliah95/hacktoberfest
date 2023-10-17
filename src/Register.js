@@ -170,6 +170,9 @@ const Register = () => {
                         Your Password does not match
                     </p>
                 </div>
+                <div className="labelField">
+                    <button disabled={!validName || !validPwd || !validPwd}> Sign Up</button>
+                </div>
             </form>
         </section >
     )
