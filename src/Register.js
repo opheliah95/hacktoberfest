@@ -29,6 +29,7 @@ const Register = () => {
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
 
+    // set user focus
     useEffect(() => {
         userRef.current.focus();
     }, []);
@@ -62,9 +63,21 @@ const Register = () => {
             <h1>Register</h1>
             <form>
                 <label htmlFor="username">
-                    Username
+                    Username:
                 </label>
                 <label htmlFor="password">Password</label>
+                <input
+                    type="text"
+                    id="username"
+                    ref={userRef}
+                    autoComplete="off"
+                    onChange={(e) => setUser(e.target.value)}
+                    required
+                    aria-invalid={validName ? "false" : "true"}
+                    aria-describedby="uidnote"
+                    onFocus={() => setUserFocus(true)}
+                    onBlur={() => setUserFocus(false)}
+                />
             </form>
         </section>
     )
