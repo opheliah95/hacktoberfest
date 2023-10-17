@@ -93,10 +93,9 @@ const Register = () => {
                                 : "offscreen"
                         }
                     >
-                        <FontAwesomeIcon icon={faInfoCircle} />
-                        Need to be 4 to 24 characters.
-                        <br />
-                        Must begin with a letter.
+                         <FontAwesomeIcon icon={faInfoCircle}
+                            style={{ marginRight: "0.5em" }} />
+                        Username needs to be 4 to 24 characters.
                         <br />
                         Letters, numbers, underscores, hyphens allowed.
                     </p>
@@ -125,12 +124,13 @@ const Register = () => {
                     <p
                         id="uidnote"
                         className={
-                            pwdFocus && user && !validPwd
+                            pwdFocus && !validPwd
                                 ? "instructions"
                                 : "offscreen"
                         }
                     >
-                        <FontAwesomeIcon icon={faInfoCircle} />
+                         <FontAwesomeIcon icon={faInfoCircle}
+                            style={{ marginRight: "0.5em" }} />
                         Your Password needs to be 8 characters at least
                         <br />
                         Must contain at least a number and !@$%
@@ -153,19 +153,20 @@ const Register = () => {
                         onChange={(e) => setMatchPwd(e.target.value)}
                         required
                         aria-invalid={validMatch ? "false" : "true"}
-                        aria-describedby="confirmnote"
+                        aria-describedby="uidnote"
                         onFocus={() => setMatchFocus(true)}
                         onBlur={() => setMatchFocus(false)}
                     />
                     <p
-                        id="confirmnote"
+                        id="uidnote"
                         className={
                             matchFocus && !validMatch
                                 ? "instructions"
                                 : "offscreen"
                         }
                     >
-                        <FontAwesomeIcon icon={faInfoCircle} />
+                        <FontAwesomeIcon icon={faInfoCircle}
+                            style={{ marginRight: "0.5em" }} />
                         Your Password does not match
                     </p>
                 </div>

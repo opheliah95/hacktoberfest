@@ -28,10 +28,6 @@ code {
   font-weight: 600;
 }
 
-.instructions {
-  visibility: visible;
-}
-
 .offscreen {
  display: none;
 }
@@ -41,5 +37,32 @@ input:focus {
 }
 .labelField {
   padding: 0.5em;
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  justify-content: center;
+}
+
+.labelField > label {
+  text-align: start;
+}
+.labelField>input {
+  padding: 0.5em;
+  border-radius: 5px;
+
+}
+.labelField>.instructions{
+  text-align: start;
+  visibility: visible;
+}
+.labelField> span > .inline-icon {
+  padding-right: 10px;
+  background-color: aqua;
+}
+
+form {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0)
 }
 
