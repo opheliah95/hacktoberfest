@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { library, icon } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faTimes, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 
@@ -7,8 +8,8 @@ const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#\$%]).{8,}$/;
 
 const Register = () => {
-    const userRef = userRef();
-    const errRef = userRef();
+    const userRef = useRef();
+    const errRef = useRef();
 
     // check if user is valid
     const [user, setUser] = useState('');
@@ -64,8 +65,13 @@ const Register = () => {
             <form>
                 <label htmlFor="username">
                     Username:
+                    <span className={validName ? "valid" : "hide"} >
+                    <FontAwesomeIcon icon={faCheck} />
+                    </span>
+                    <span className={validName || !user ? "hide" : "invalid"} >
+                    <FontAwesomeIcon icon={faTimes} />
+                    </span>
                 </label>
-                <label htmlFor="password">Password</label>
                 <input
                     type="text"
                     id="username"
@@ -78,8 +84,56 @@ const Register = () => {
                     onFocus={() => setUserFocus(true)}
                     onBlur={() => setUserFocus(false)}
                 />
+                <p
+                    id="uidnote"
+                    className={
+                        userFocus && user && !validName
+                            ? "instructions"
+                            : "offscreen"
+                    }
+                >
+                    <FontAwesomeIcon icon={faInfoCircle} />
+                    Need to be 4 to 24 characters.
+                    <br />
+                    Must begin with a letter.
+                    <br />
+                    Letters, numbers, underscores, hyphens allowed.
+                </p>
+                <label htmlFor="password">
+                    Password:
+                    <span className={validPwd ? "valid" : "hide"} >
+                    <FontAwesomeIcon icon={faCheck} />
+                    </span>
+                    <span className={validPwd || !pwd ? "hide" : "invalid"} >
+                    <FontAwesomeIcon icon={faTimes} />
+                    </span>
+                </label>
+                <input
+                    type="password"
+                    id="password"
+                    autoComplete="off"
+                    onChange={(e) => setPwd(e.target.value)}
+                    required
+                    aria-invalid={validPwd ? "false" : "true"}
+                    aria-describedby="uidnote"
+                    onFocus={() => setPwdFocus(true)}
+                    onBlur={() => setPwdFocus(false)}
+                />
+                <p
+                    id="uidnote"
+                    className={
+                        pwdFocus && user && !validPwd
+                            ? "instructions"
+                            : "offscreen"
+                    }
+                >
+                    <FontAwesomeIcon icon={faInfoCircle} />
+                    Your Password needs to be 8 characters at least
+                    <br />
+                    Must contain at least a number and !@$%
+                </p>
             </form>
-        </section>
+        </section >
     )
 }
 
