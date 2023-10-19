@@ -59,7 +59,7 @@ const Register = () => {
 
 
     return (
-        <section>
+        <section className="app-form">
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
             <h1>Register</h1>
             <form>
@@ -93,7 +93,7 @@ const Register = () => {
                                 : "offscreen"
                         }
                     >
-                         <FontAwesomeIcon icon={faInfoCircle}
+                        <FontAwesomeIcon icon={faInfoCircle}
                             style={{ marginRight: "0.5em" }} />
                         Username needs to be 4 to 24 characters.
                         <br />
@@ -129,7 +129,7 @@ const Register = () => {
                                 : "offscreen"
                         }
                     >
-                         <FontAwesomeIcon icon={faInfoCircle}
+                        <FontAwesomeIcon icon={faInfoCircle}
                             style={{ marginRight: "0.5em" }} />
                         Your Password needs to be 8 characters at least
                         <br />
@@ -172,6 +172,12 @@ const Register = () => {
                 </div>
                 <div className="labelField">
                     <button disabled={!validName || !validPwd || !validPwd}> Sign Up</button>
+                </div>
+                <div className="labelField">
+                    <div className="signin">
+                    <p>Having an account? </p>
+                    <p><a href="#">Log In</a> Here!</p>
+                    </div>
                 </div>
             </form>
         </section >
