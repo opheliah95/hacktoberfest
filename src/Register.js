@@ -35,6 +35,23 @@ const Register = () => {
         userRef.current.focus();
     }, []);
 
+    // submit function
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        // validation check
+        const v1 = USER_REGEX.test(user);
+        const v2 = PWD_REGEX.test(pwd);
+        if (!v1 || !v2) {
+            setErrMsg("Invalid information entered");
+            console.log(errMsg);
+            return;
+        } 
+
+        // return success
+        setErrMsg(v1);
+        console.log(`successfully registed ${user}`);
+    }
+
     // update user value
     useEffect(() => {
         const result = USER_REGEX.test(user);
@@ -62,7 +79,7 @@ const Register = () => {
         <section className="app-form">
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
             <h1>Register</h1>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div className="labelField" >
                     <label htmlFor="username">
                         Username:
