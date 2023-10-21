@@ -2,10 +2,11 @@ import { useRef, useState, useEffect } from "react";
 import { library, icon } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faTimes, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
-
+import axios from './api/axios'
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#\$%]).{8,}$/;
+const REGISTER_URL = '/register';
 
 const Register = () => {
     const userRef = useRef();
@@ -47,9 +48,31 @@ const Register = () => {
             return;
         }
 
-        // return success
-        setSuccess(true);
-        console.log(`successfully registed ${user}`);
+        // handling axios
+        try {
+            const response = await axios.post(REGISTER_URL, JSON.stringify(user, pwd),
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    withCredentials: true
+                });
+            // return success
+            setSuccess(true);
+            console.log(`successfully registed ${user}`);
+            console.log(response.data);
+
+        } catch (err) {
+            if (!err.response) {
+                setErrMsg("No server response");
+                return
+            } else if (err.response?.status === 409) {
+                setErrMsg("username taken");
+                return
+            }
+            setErrMsg(err);
+            console.log(`There is an error ${err}`);
+        }
     }
 
     // update user value
