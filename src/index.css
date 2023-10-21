@@ -73,3 +73,6 @@ input:focus {
   border-radius: 1em;
 }
 
+.errmsg {
+  color:red;
+}
