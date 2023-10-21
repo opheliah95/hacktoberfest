@@ -45,10 +45,10 @@ const Register = () => {
             setErrMsg("Invalid information entered");
             console.log(errMsg);
             return;
-        } 
+        }
 
         // return success
-        setErrMsg(v1);
+        setSuccess(true);
         console.log(`successfully registed ${user}`);
     }
 
@@ -76,128 +76,141 @@ const Register = () => {
 
 
     return (
-        <section className="app-form">
-            <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-            <h1>Register</h1>
-            <form onSubmit={handleSubmit}>
-                <div className="labelField" >
-                    <label htmlFor="username">
-                        Username:
-                        <span className={validName ? "valid" : "hide"} >
-                            <FontAwesomeIcon icon={faCheck} />
-                        </span>
-                        <span className={validName || !user ? "hide" : "invalid"} >
-                            <FontAwesomeIcon icon={faTimes} />
-                        </span>
-                    </label>
-                    <input
-                        type="text"
-                        id="username"
-                        ref={userRef}
-                        autoComplete="off"
-                        onChange={(e) => setUser(e.target.value)}
-                        required
-                        aria-invalid={validName ? "false" : "true"}
-                        aria-describedby="uidnote"
-                        onFocus={() => setUserFocus(true)}
-                        onBlur={() => setUserFocus(false)}
-                    />
-                    <p
-                        id="uidnote"
-                        className={
-                            userFocus && user && !validName
-                                ? "instructions"
-                                : "offscreen"
-                        }
-                    >
-                        <FontAwesomeIcon icon={faInfoCircle}
-                            style={{ marginRight: "0.5em" }} />
-                        Username needs to be 4 to 24 characters.
-                        <br />
-                        Letters, numbers, underscores, hyphens allowed.
+        <> {
+            success ? (
+                <section className="app-form">
+                    <h1>Thanks for signing up.</h1>
+                    <p>Your account has been created!</p>
+                    <p>
+                        <a href="#">Sign In</a>
                     </p>
-                </div>
-                <div className="labelField">
-                    <label htmlFor="password">
-                        Password:
-                        <span className={validPwd ? "valid" : "hide"} >
-                            <FontAwesomeIcon icon={faCheck} />
-                        </span>
-                        <span className={validPwd || !pwd ? "hide" : "invalid"} >
-                            <FontAwesomeIcon icon={faTimes} />
-                        </span>
-                    </label>
-                    <input
-                        type="password"
-                        id="password"
-                        autoComplete="off"
-                        onChange={(e) => setPwd(e.target.value)}
-                        required
-                        aria-invalid={validPwd ? "false" : "true"}
-                        aria-describedby="uidnote"
-                        onFocus={() => setPwdFocus(true)}
-                        onBlur={() => setPwdFocus(false)}
-                    />
-                    <p
-                        id="uidnote"
-                        className={
-                            pwdFocus && !validPwd
-                                ? "instructions"
-                                : "offscreen"
-                        }
-                    >
-                        <FontAwesomeIcon icon={faInfoCircle}
-                            style={{ marginRight: "0.5em" }} />
-                        Your Password needs to be 8 characters at least
-                        <br />
-                        Must contain at least a number and !@$%
-                    </p>
-                </div>
-                <div className="labelField">
-                    <label htmlFor="confirm_password">
-                        Re-enter Password:
-                        <span className={matchPwd && validMatch ? "valid" : "hide"} >
-                            <FontAwesomeIcon icon={faCheck} />
-                        </span>
-                        <span className={matchPwd && validMatch ? "hide" : "invalid"} >
-                            <FontAwesomeIcon icon={faTimes} />
-                        </span>
-                    </label>
-                    <input
-                        type="password"
-                        id="match_password"
-                        autoComplete="off"
-                        onChange={(e) => setMatchPwd(e.target.value)}
-                        required
-                        aria-invalid={validMatch ? "false" : "true"}
-                        aria-describedby="uidnote"
-                        onFocus={() => setMatchFocus(true)}
-                        onBlur={() => setMatchFocus(false)}
-                    />
-                    <p
-                        id="uidnote"
-                        className={
-                            matchFocus && !validMatch
-                                ? "instructions"
-                                : "offscreen"
-                        }
-                    >
-                        <FontAwesomeIcon icon={faInfoCircle}
-                            style={{ marginRight: "0.5em" }} />
-                        Your Password does not match
-                    </p>
-                </div>
-                <div className="labelField">
-                    <button disabled={!validName || !validPwd || !validPwd}> Sign Up</button>
-                </div>
-                <div className="labelField">
-                    <div className="signin">
-                    <p>Having an account? </p>
-                    <p><a href="#">Log In</a> Here!</p>
-                    </div>
-                </div>
-            </form>
-        </section >
+                </section>) : (
+                <section className="app-form">
+                    <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+                    <h1>Register</h1>
+                    <form onSubmit={handleSubmit}>
+                        <div className="labelField" >
+                            <label htmlFor="username">
+                                Username:
+                                <span className={validName ? "valid" : "hide"} >
+                                    <FontAwesomeIcon icon={faCheck} />
+                                </span>
+                                <span className={validName || !user ? "hide" : "invalid"} >
+                                    <FontAwesomeIcon icon={faTimes} />
+                                </span>
+                            </label>
+                            <input
+                                type="text"
+                                id="username"
+                                ref={userRef}
+                                autoComplete="off"
+                                onChange={(e) => setUser(e.target.value)}
+                                required
+                                aria-invalid={validName ? "false" : "true"}
+                                aria-describedby="uidnote"
+                                onFocus={() => setUserFocus(true)}
+                                onBlur={() => setUserFocus(false)}
+                            />
+                            <p
+                                id="uidnote"
+                                className={
+                                    userFocus && user && !validName
+                                        ? "instructions"
+                                        : "offscreen"
+                                }
+                            >
+                                <FontAwesomeIcon icon={faInfoCircle}
+                                    style={{ marginRight: "0.5em" }} />
+                                Username needs to be 4 to 24 characters.
+                                <br />
+                                Letters, numbers, underscores, hyphens allowed.
+                            </p>
+                        </div>
+                        <div className="labelField">
+                            <label htmlFor="password">
+                                Password:
+                                <span className={validPwd ? "valid" : "hide"} >
+                                    <FontAwesomeIcon icon={faCheck} />
+                                </span>
+                                <span className={validPwd || !pwd ? "hide" : "invalid"} >
+                                    <FontAwesomeIcon icon={faTimes} />
+                                </span>
+                            </label>
+                            <input
+                                type="password"
+                                id="password"
+                                autoComplete="off"
+                                onChange={(e) => setPwd(e.target.value)}
+                                required
+                                aria-invalid={validPwd ? "false" : "true"}
+                                aria-describedby="uidnote"
+                                onFocus={() => setPwdFocus(true)}
+                                onBlur={() => setPwdFocus(false)}
+                            />
+                            <p
+                                id="uidnote"
+                                className={
+                                    pwdFocus && !validPwd
+                                        ? "instructions"
+                                        : "offscreen"
+                                }
+                            >
+                                <FontAwesomeIcon icon={faInfoCircle}
+                                    style={{ marginRight: "0.5em" }} />
+                                Your Password needs to be 8 characters at least
+                                <br />
+                                Must contain at least a number and !@$%
+                            </p>
+                        </div>
+                        <div className="labelField">
+                            <label htmlFor="confirm_password">
+                                Re-enter Password:
+                                <span className={matchPwd && validMatch ? "valid" : "hide"} >
+                                    <FontAwesomeIcon icon={faCheck} />
+                                </span>
+                                <span className={matchPwd && validMatch ? "hide" : "invalid"} >
+                                    <FontAwesomeIcon icon={faTimes} />
+                                </span>
+                            </label>
+                            <input
+                                type="password"
+                                id="match_password"
+                                autoComplete="off"
+                                onChange={(e) => setMatchPwd(e.target.value)}
+                                required
+                                aria-invalid={validMatch ? "false" : "true"}
+                                aria-describedby="uidnote"
+                                onFocus={() => setMatchFocus(true)}
+                                onBlur={() => setMatchFocus(false)}
+                            />
+                            <p
+                                id="uidnote"
+                                className={
+                                    matchFocus && !validMatch
+                                        ? "instructions"
+                                        : "offscreen"
+                                }
+                            >
+                                <FontAwesomeIcon icon={faInfoCircle}
+                                    style={{ marginRight: "0.5em" }} />
+                                Your Password does not match
+                            </p>
+                        </div>
+                        <div className="labelField">
+                            <button disabled={!validName || !validPwd || !validPwd}> Sign Up</button>
+                        </div>
+                        <div className="labelField">
+                            <div className="signin">
+                                <p>Having an account? </p>
+                                <p><a href="#">Log In</a> Here!</p>
+                            </div>
+                        </div>
+                    </form>
+                </section >
+            )
+        }
+        </>
+
     )
 }
 
