@@ -50,7 +50,9 @@ const Register = () => {
 
         // handling axios
         try {
-            const response = await axios.post(REGISTER_URL, JSON.stringify(user, pwd),
+            const data = JSON.stringify({name : user, pass : pwd});
+            console.log(`the json is now: ${data}`);
+            const response = await axios.post(REGISTER_URL, data,
                 {
                     headers: {
                         'Content-Type': 'application/json'
@@ -69,9 +71,15 @@ const Register = () => {
             } else if (err.response?.status === 409) {
                 setErrMsg("username taken");
                 return
+            } else {
+                const message = err.message;
+                console.log(message);
+                setErrMsg(message);
             }
-            setErrMsg(err);
+
+            errRef.current.focus();
             console.log(`There is an error ${err}`);
+            console.log(`errmsg is ${errMsg}`);
         }
     }
 
