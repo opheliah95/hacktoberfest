@@ -7,7 +7,8 @@ export const SurrealNamespace =
     process.env.REACT_APP_NEXT_PUBLIC_SURREAL_NAMESPACE ?? 'test';
 export const SurrealDatabase =
     process.env.REACT_APP_NEXT_PUBLIC_SURREAL_DATABASE ?? 'test';
-
+export const AdminName = process.env.REACT_APP_ADMIN_NAME ?? 'root';
+export const AdminPass = process.env.REACT_APP_ADMIN_PASS ?? 'root';
 
 const db = new Surreal();
 export async function initDB() {
@@ -25,13 +26,14 @@ export async function initDB() {
         // db sign-in 
         await db
             .signin({
-                user: process.env.REACT_APP_ADMIN_NAME,
-                pass: process.env.REACT_APP_ADMIN_PASS,
+                username: AdminName,
+                password: AdminPass,
             })
             .then((res) => {
                 console.log("Signed in to database", res);
             })
             .catch((err) => {
+                console.log(`adminname ${AdminName} pass ${AdminPass}`);
                 console.log("Signin Error signing in to database", err);
             });
         console.log("namespace: ", SurrealNamespace);
@@ -45,8 +47,9 @@ export async function initDB() {
             async (err) => {
                 try {
                     // Attempt to define the namespace and database using environment variables.
-                    await db.query(`DEFINE NAMESPACE ${process.env.REACT_APP_NEXT_PUBLIC_SURREAL_NAMESPACE}`);
-                    await db.query(`DEFINE DATABASE ${process.env.REACT_APP_NEXT_PUBLIC_SURREAL_DATABASE}`);
+                    await db.query(`DEFINE NAMESPACE ${SurrealNamespace}`);
+                    await db.query(`DEFINE DATABASE ${SurrealDatabase}`);
+                    console.log("constructing ...");
                 } 
                 catch (recoveryError) {
                     console.log("Failed to recover. Additional error:", recoveryError);
