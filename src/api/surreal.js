@@ -39,7 +39,7 @@ export async function initDB() {
         console.log("namespace: ", SurrealNamespace);
 
         // connect to relevant namespace
-        await db.use(SurrealNamespace, SurrealDatabase)
+        await db.use({"namespace": SurrealNamespace, "database":SurrealDatabase})
         .then((res) =>{
             console.log("Setup successful", res);
         })
