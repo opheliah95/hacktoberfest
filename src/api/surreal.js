@@ -61,5 +61,5 @@ export async function initDB() {
     }
 }
 
-export default db;
+export { db as default };
 

@@ -3,7 +3,7 @@ import { library, icon } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faTimes, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import axios from './api/axios';
-import { initDB } from "./api/surreal";
+import db, { initDB } from "./api/surreal";
 
 initDB();
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
@@ -50,21 +50,18 @@ const Register = () => {
             return;
         }
 
-        // handling axios
+        // using surrealdb for backend
         try {
-            const data = JSON.stringify({name : user, pass : pwd});
-            console.log(`the json is now: ${data}`);
-            const response = await axios.post(REGISTER_URL, data,
-                {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    withCredentials: true
-                });
+            const data_gen = await db.let('data', {
+                name: user,
+                password: pwd,
+            });
+           const response = await db.query('CREATE person SET name = $data');
+           const result = await db.query('SELECT * FROM person WHERE name.first = $name.first');
             // return success
             setSuccess(true);
             console.log(`successfully registed ${user}`);
-            console.log(response.data);
+            console.log('the data is: ', result);
 
         } catch (err) {
             if (!err.response) {
