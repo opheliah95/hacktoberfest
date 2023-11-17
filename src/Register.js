@@ -2,7 +2,6 @@ import { useRef, useState, useEffect } from "react";
 import { library, icon } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faTimes, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
-import axios from './api/axios';
 import db, { initDB } from "./api/surreal";
 
 initDB();
