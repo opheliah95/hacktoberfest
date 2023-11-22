@@ -21,11 +21,11 @@ const Login = () => {
     }, [user, pwd]);
 
     return (
-        <section>
+        <section className='app-form'>
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"}
                 aria-live="assertive">{errMsg}</p>
             <h1>Sign in</h1>
-            <form>
+            <form className='labelField'>
                 <label typeof='username'>Username:</label>
                 <input id='username' ref={userRef}
                     autoComplete='off'
@@ -34,7 +34,15 @@ const Login = () => {
                     }}
                     value={user}
                     required />
-
+                <label typeof='password'>Password:</label>
+                <input type="text"
+                    id="password"
+                    autoComplete='off'
+                    onChange={(e) => {
+                        setPwd(e.target.value)
+                    }}
+                    value={pwd}
+                    required/>
             </form>
         </section>
     )
