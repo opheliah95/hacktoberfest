@@ -33,7 +33,7 @@ const Login = () => {
         <div>
             {success ? (
                 <section className='app-form'>
-                    <h1> Welcome {user} !</h1>
+                    <h1> You are logged in as {user}</h1>
                     <br />
                     <p>Go to <a href="#"> Home</a></p>
                 </section>
