@@ -33,12 +33,31 @@ const Login = () => {
             const response = await axios.post(
                 LOGIN_URL,
                 JSON.stringify({ user, pwd }),
-                { headers: { 'Content-Type': 'application/json' } });
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
+                });
             // clear and password field once submitted
+            console.log(JSON.stringify(response?.data));
+            const accessToken = response?.data?.accessToken;
+            setAuth({ user, pwd, accessToken });
             setPwd("");
             setSuccess(true);
 
         } catch (err) {
+            if (!err?.response) {
+                setErrMsg("No server response");
+            }
+            else if (err?.response.status === 400) {
+                setErrMsg("Missing username or password");
+            }
+            else if (err?.response.status === 401) {
+                setErrMsg("Unauthorized");
+            } else {
+                setErrMsg(err.response);
+            }
+
+            errRef.current.focus();
 
         }
 
