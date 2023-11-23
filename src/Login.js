@@ -1,9 +1,12 @@
-import React, { useRef, useState, useEffect } from 'react';
-
+import React, { useRef, useState, useEffect, useContext } from 'react';
+import authContext from './context/AuthProvider';
+import axios from './api/axios';
 
 const Login = () => {
     const userRef = useRef();
     const errRef = useRef();
+    const { setAuth } = useContext(authContext);
+    const LOGIN_URL = '/auth';
 
     // list of states
     const [user, setUser] = useState('');
@@ -24,9 +27,21 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(user, pwd);
-        // clear and password field once submitted
-        setPwd("");
-        setSuccess(true);
+
+        // main logic
+        try {
+            const response = await axios.post(
+                LOGIN_URL,
+                JSON.stringify({ user, pwd }),
+                { headers: { 'Content-Type': 'application/json' } });
+            // clear and password field once submitted
+            setPwd("");
+            setSuccess(true);
+
+        } catch (err) {
+
+        }
+
     };
 
     return (
